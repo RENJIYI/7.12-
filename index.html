@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Object的assign方法:拼接
+        var Obj1={name:'老王'};
+        var obj2={age:'43'};
+        var obj3={say:function(){
+            console.log('说话');
+            }
+        };
+        console.log(Object.assign(Obj1,obj2,obj3));//将后两个拼接到第一个上
+        console.log(Obj1,obj2);//检测第一个是否改变
+        // assign用于对象拷贝
+        var obj={name:'老李',age:'60'};
+        var newobj=Object.assign({},obj);
+        console.log(newobj)
+        // Object的is方法:判断两个值是否相同
+        console.log(Object.is('a',97));//判断a的阿斯克码值
+        console.log(Object.is(false,false));//判断布尔类型
+        console.log(Object.is((null+1),1));
+        console.log(Object.is(11,(10+1)));//判断是否先相加
+        console.log(Object.is(NaN,((Number('a')+1))));//判断强转换
+        //Object的prototype.isPrototypeOf(被测对象)方法:
+            // 确定一个对象是否存在于另一个对象的原型链中
+        function a(){}//创建a类
+        function c(){}//创建c类
+        c.prototype=new a();//c类继承a类
+        var d=new c();//c类创建d对象
+        var b=new a();//a类创建b对象
+        console.log(a.prototype.isPrototypeOf(d));//通过判断d对象能否调用a类的方法来确定是否继承成功
+        //Object的defineProperty方法：在对象里定义一个属性
+        var obj = new Object();
+        Object.defineProperty(obj, 'name', {
+            configurable: false,
+            writable: true,
+            enumerable: true,           //该属性是否可枚举
+            value: '张三'
+        })
+        console.log(obj.name)  //张三
+        //Object的defineProperties方法：在对象上定义一个或多个属性，并返回该对象
+        var obj = new Object();
+        Object.defineProperties(obj, {
+            name: {
+                value: '张三',
+                configurable: false,
+                writable: true,
+                enumerable: true
+            },
+            age: {
+                value: 18,
+                configurable: true
+            }
+        })
+        console.log(obj.name, obj.age) // 张三, 18
+        // Object的freeze方法：阻止修改现有属性的特性和值，并阻止添加新属性
+        var obj={name:'张三',age:18};
+        Object.freeze(obj)
+        obj.name='李四';
+        obj.sex='男';
+        console.log(obj)//{name: "张三", age: 18}
+        // Object的keys方法：返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含 Symbol 属性）的键
+        console.log(Object.keys(obj));  //['a','b']
+            // 如果键名是数字，则按从小到大排列
+        var obj1 = { 100: "a", 2: "b", 7: "c"};
+        console.log(Object.keys(obj1)); // console: ["2", "7", "100"]
+        // Object的getOwnPropertyNames方法：返回一个数组,包含对象自身的所有属性(不含Symbol属性,但是包括不可枚举属性)
+        var my_obj = Object.create({}, {
+        getFoo: {
+            value: function() { return this.foo;},
+            enumerable: false
+        }
+        });
+        my_obj.foo = 1;
+        console.log(Object.getOwnPropertyNames(my_obj));
+        // Object的getOwnPropertySymbols方法
+        var obj = {};
+        var a = Symbol("a");
+        var b = Symbol.for("b");
+        obj[a] = "localSymbol";
+        obj[b] = "globalSymbol";
+        var objectSymbols = Object.getOwnPropertySymbols(obj);
+        console.log(objectSymbols)         // [Symbol(a), Symbol(b)]
+        console.log(objectSymbols[0])      // Symbol(a)
+        // Reflect的ownKeys方法
+        var object1 = {
+        property1: 42,
+        property2: 13
+        };
+        console.log(Reflect.ownKeys(object1));
+        // ["property1", "property2"]
+        // Object的values方法
+        var obj = { name: 'zhangsan', age: 20 };
+        console.log(Object.values(obj)); // ['zhangsan', 20]
+    </script>
+    <script>
+        var x=-3.1415926;
+        var y=3
+        var num=5;
+        console.log(Math.abs(x)) //返回x的绝对值。
+        console.log(Math.round(x))//返回x四舍五入之后的整数值
+        console.log(Math.ceil(x))//返回x的近似值，向上取整
+        console.log(Math.floor(x))//返回x的近似值，向下取整
+        console.log(Math.max(x,y))//返回x,y中的最大值
+        console.log(Math.min(x,y))//返回x,y中的最小值
+        console.log(Math.random())//返回一个0~1之间的数字
+        console.log(Math.trunc(x))//将x的小数部分去除，返回整数部分(ie不能使用)
+        console.log(Math.pow(x,y))//取x的y次幂
+        console.log(Math.sqrt(x))//返回x的平方根
+        console.log(Math.sin(x))//返回x的正弦值
+        console.log(Math.cos(x))//返回x的余弦值
+        console.log(Math.tan(x))//返回x的正切值
+        console.log(Math.asin(x))//返回x的反正弦值
+        console.log(Math.acos(x))//返回x的反余弦值
+        console.log(Math.atan(x))//返回x的反正切值
+        console.log(x.toFixed(num))//可把 Number 四舍五入为指定小数位数的数字
+    </script>
+    <script>
+        
+        var str=new String(" 110 120 119 112 114 ");
+        console.log(str)
+        console.log(str.length)    //19
+        console.log(str.charAt(1));//返回下标为index的子字符串
+        console.log(str.charCodeAt(1));//根据下标，返回对应下标的字符的ACSCII码
+        console.log(String.fromCharCode(97));//将ACSCII码转化成字符串，涉及到数字与字母之间的转化可以使用该方法
+        console.log(str.indexOf('110'));//查找一个字符或者字符串在字符串中第一次出现的位置,未找到则返回-1
+        console.log(str.lastIndexOf('120'))//倒序查找一个字符或者字符串在字符串中第一次出现的位置,返回位置，,未找到则返回-1
+        console.log(str.replace("110","120"))//将指定的字符串替换，只能替换第一个
+        console.log(str.slice(0,1))//字符串截取，识别负数，跟数组相同
+        console.log(str.substring(0,5))//字符串截取，同slice方法，但不识别负数
+        console.log(str.substr(0,3))//根据长度进行字符串截取
+        console.log(str.split(' '))// 以某一字符串将目标字符串分割，可用于将特定格式的字符串转化如2018/10/20
+        console.log(str.toLowerCase())//将str字符串中的字符转化为小写，不修改原字符串
+        console.log(str.toUpperCase())//将str字符串中的字符转化为大写
+        console.log(str.trim())//将字符串左右空格去除，可用于接收表单数据 IE9以下不识别
+        console.log(str.match())//在字符串内检索指定的值，或找到一个或多个正则表达式的匹配
+        console.log(str.match())//str.concat('a','b','c')
+        console.log(str.padStart())//向字符串开头(padStart)添加字符，使字符串达到指定的长度
+        console.log(str.padEnd())//向字符串结尾(padEnd)添加字符，使字符串达到指定的长度
+    </script>
+    <script>
+        var arr=new Array(12,15,1,3,8);
+        arr.push(11)//向数组的末尾追加元素
+        console.log(arr);
+        arr.unshift(100);//向数组的开头添加元素
+        console.log(arr);
+        console.log(arr.pop());//删除末尾的元素
+        console.log(arr.shift());//开头删除一个元素
+        console.log(arr.splice(2,0,200));//任意位置添加删除
+        console.log(arr.join("/"));//使用分隔符将数组数据隔开变为字符串
+        console.log(arr.slice(1,3));//数组的截取
+        console.log(arr.concat([7,8,9]));//多个数组的连接
+        console.log(arr.indexOf(12));//查找某个值在数组中第一次出现的下标
+        console.log(arr.lastIndexOf(15));//倒叙查找某个值在数组中第一次出现的位置
+        console.log(arr.sort((a,b)=>a-b));//数组的排序
+        arr.forEach(function(value,index){console.log(index,value)});//遍历数组
+        console.log(arr.filter((value,index)=>{return value>100}));// 过滤（根据条件筛选数组元素）
+        console.log(arr.map((value,index)=>value*2));//映射 将数组中的所有数据按照条件改变，形成新数组
+        console.log(arr.some(function(value,index){return value<500;}));//判断 根据回调函数的判断条件来选择真假
+        console.log(arr.every(function(value,index){return value<500;}));//判断 根据回调函数的判断条件来选择真假(与some比较记忆)
+        console.log(arr.reverse());//数组倒序
+        console.log(Array.from({length:2,0:'aaa',1:'bbb'}));//将两类对象转为真正的数组
+        console.log(Array.of(1,5,8,9,6));//将一组值，转换为数组
+        console.log(arr.includes(200));//检查数组是否包含某元素，包含返回true，否则返回false
+        console.log(arr.sort(()=>Math.random()-0.5));//将数组顺序打乱：例如不重复随机选取数组内容，可将数组打乱后按顺序取出
+    </script>
+</body>
+</html>
